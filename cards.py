@@ -7,7 +7,8 @@ class Symbol:
         self.rotation = rotation
 
 class PlayingCard:
-    def __init__( self, x1y1, x1y2, x2y1, x2y2, x3y1, x3y2 ):
+    def __init__( self, id, x1y1, x1y2, x2y1, x2y2, x3y1, x3y2 ):
+        self.id = id
         self.symbols = {
             "top left" : x1y1,
             "top right" : x1y2,
@@ -18,6 +19,7 @@ class PlayingCard:
         }
 
 pc1 = PlayingCard( 
+        1,
         Symbol( 'M', "red", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '8', "black", "none"),
@@ -25,7 +27,8 @@ pc1 = PlayingCard(
         Symbol( 'B', "green", "cw"),
         Symbol( '3', "green", "ccw")
     )
-pc2 = PlayingCard( 
+pc2 = PlayingCard(  
+        2,
         Symbol( 'M', "red", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '3', "blue", "none"),
@@ -33,7 +36,8 @@ pc2 = PlayingCard(
         Symbol( 'B', "green", "ccw"),
         Symbol( '3', "green", "cw")
     )
-pc3 = PlayingCard( 
+pc3 = PlayingCard(  
+        3,
         Symbol( 'M', "red", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '3', "blue", "none"),
@@ -41,7 +45,8 @@ pc3 = PlayingCard(
         Symbol( 'B', "green", "ccw"),
         Symbol( '3', "green", "cw")
     )
-pc4 = PlayingCard( 
+pc4 = PlayingCard(  
+        4,
         Symbol( 'M', "black", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '3', "blue", "none"),
@@ -49,7 +54,8 @@ pc4 = PlayingCard(
         Symbol( 'B', "green", "cw"),
         Symbol( '3', "green", "ccw")
     )
-pc5 = PlayingCard( 
+pc5 = PlayingCard(  
+        5,
         Symbol( 'M', "black", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '8', "black", "none"),
@@ -57,7 +63,8 @@ pc5 = PlayingCard(
         Symbol( 'B', "green", "ccw"),
         Symbol( '3', "green", "cw")
     )
-pc6 = PlayingCard( 
+pc6 = PlayingCard(  
+        6,
         Symbol( 'M', "black", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '3', "blue", "none"),
@@ -65,7 +72,8 @@ pc6 = PlayingCard(
         Symbol( 'B', "green", "cw"),
         Symbol( '3', "green", "ccw")
     )
-pc7 = PlayingCard( 
+pc7 = PlayingCard(  
+        7,
         Symbol( 'M', "red", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '3', "blue", "none"),
@@ -73,7 +81,8 @@ pc7 = PlayingCard(
         Symbol( 'B', "green", "ccw"),
         Symbol( '3', "green", "cw")
     )
-pc8 = PlayingCard( 
+pc8 = PlayingCard(  
+        8,
         Symbol( 'M', "red", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '8', "black", "none"),
@@ -81,7 +90,8 @@ pc8 = PlayingCard(
         Symbol( 'B', "green", "cw"),
         Symbol( '3', "green", "ccw")
     )
-pc9 = PlayingCard( 
+pc9 = PlayingCard(  
+        9,
         Symbol( 'M', "red", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '8', "black", "none"),
@@ -89,7 +99,8 @@ pc9 = PlayingCard(
         Symbol( 'B', "green", "cw"),
         Symbol( '3', "green", "ccw")
     )
-pc10 = PlayingCard( 
+pc10 = PlayingCard(  
+        10,
         Symbol( 'M', "black", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '8', "black", "none"),
@@ -97,7 +108,8 @@ pc10 = PlayingCard(
         Symbol( 'B', "green", "ccw"),
         Symbol( '3', "green", "cw")
     )
-pc11 = PlayingCard( 
+pc11 = PlayingCard(  
+        11,
         Symbol( 'M', "black", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '8', "black", "none"),
@@ -105,7 +117,8 @@ pc11 = PlayingCard(
         Symbol( 'B', "green", "ccw"),
         Symbol( '3', "green", "cw")
     )
-pc12 = PlayingCard( 
+pc12 = PlayingCard(  
+        12,
         Symbol( 'M', "black", "none"),
         Symbol( '8', "blue", "cw"),
         Symbol( '3', "blue", "none"),
