@@ -31,9 +31,92 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "StartGameIntent",
+                    "slots": [],
+                    "samples": [
+                        "start the game",
+                        "begin the game"
+                    ]
+                },
+                {
+                    "name": "QueryIntent",
+                    "slots": [
+                        {
+                            "name": "Position",
+                            "type": "Position"
+                        }
+                    ],
+                    "samples": [
+                        "what symbol is in the {Position}",
+                        "what is the color of the symbol in the {Position}",
+                        "what is the color of the {Position} symbol",
+                        "what's the rotation of that symbol",
+                        "what color is that symbol"
+                    ]
+                },
+                {
+                    "name": "AnswerIntent",
+                    "slots": [
+                        {
+                            "name": "Number",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "The card is number {Number}",
+                        "Is the card number {Number}"
+                    ]
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "Position",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "middle right"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "middle left"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "center left"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "center right"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bottom right"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bottom left"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "top right"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "top left"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
 }
