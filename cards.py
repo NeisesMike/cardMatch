@@ -119,10 +119,12 @@ cardSet = { pc1, pc2, pc3, pc4, pc5, pc6, pc7, pc8, pc9, pc10, pc11, pc12 }
 
 class CardGame:
     def __init__( self ):
-        self.card = random.sample( cardSet )
+        self.card = random.choice( tuple(cardSet) )
     def query( row, column ):
         return( self.card.symbol[row*10+column] )
         
+test = CardGame()        
+
 def findSymmetries( card ):
     rows = [ [11,12],[21,22],[31,32] ]
     columns = [ [11,21,31],[12,22,32] ]
