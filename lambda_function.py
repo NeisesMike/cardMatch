@@ -28,7 +28,7 @@ startTime = 0
 curTime = 0
 
 # gameSession will be an object of the CardGame class
-gameSession = 0
+gameSession = CardGame()
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -128,7 +128,7 @@ class StartGameIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         speak_output = "Okay. I've put 60 seconds on the clock. Let's begin!"
         isGameInProgress = True
-        gameSession = CardGame()
+        gameSession.refresh()
         startTime = time.time()
 
         return (
@@ -147,9 +147,11 @@ class QueryIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         
-        item = handler_input.request_envelope.request.intent.slots['Position'].value
+        position = handler_input.request_envelope.request.intent.slots['Position'].value
 
-        speak_output = "The answer is... " + item
+        symbol = gameSession.query( position )
+
+        speak_output = "The answer is... " + str(symbol.character)
 
         return (
             handler_input.response_builder
