@@ -8,14 +8,13 @@ class Symbol:
 
 class PlayingCard:
     def __init__( self, x1y1, x1y2, x2y1, x2y2, x3y1, x3y2 ):
-        # 11 means row 1 column 1, the top left symbol
         self.symbols = {
-            11 : x1y1,
-            12 : x1y2,
-            21 : x2y1,
-            22 : x2y2,
-            31 : x3y1,
-            32 : x3y2
+            "top left" : x1y1,
+            "top right" : x1y2,
+            "center left" : x2y1,
+            "center right" : x2y2,
+            "bottom left" : x3y1,
+            "bottom right" : x3y2
         }
 
 pc1 = PlayingCard( 
@@ -120,10 +119,10 @@ cardSet = { pc1, pc2, pc3, pc4, pc5, pc6, pc7, pc8, pc9, pc10, pc11, pc12 }
 class CardGame:
     def __init__( self ):
         self.card = random.choice( tuple(cardSet) )
-    def query( row, column ):
-        return( self.card.symbol[row*10+column] )
-        
-test = CardGame()        
+    def query( self, position ):
+        return( self.card.symbols[position] )
+    def refresh( self ):
+        self.card = random.choice( tuple(cardSet) )
 
 def findSymmetries( card ):
     rows = [ [11,12],[21,22],[31,32] ]
