@@ -14,10 +14,15 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
-import cards
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+
+import time
+import cards
+isGameInProgress = False
+startTime = 0 
+curTime = 0
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -107,6 +112,60 @@ class SessionEndedRequestHandler(AbstractRequestHandler):
         return handler_input.response_builder.response
 
 
+# Begin the Alexa Card Matching Game
+class StartGameIntentHandler(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("StartGameIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        speak_output = "Okay. I've put 60 seconds on the clock. Let's begin!"
+        startTime = time.time()
+        isGameInProgress = True
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
+# Handle a Question the Human Asks
+class QueryIntentHandler(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("QueryIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        speak_output = "The answer is..."
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
+# Handle an Answer the Human Gives
+class AnswerIntentHandler(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("AnswerIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        isAnswerValid = False
+        speak_output = "Your answer is " + str(isAnswerValid)
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
 class IntentReflectorHandler(AbstractRequestHandler):
     """The intent reflector is used for interaction model testing and debugging.
     It will simply repeat the intent the user said. You can create custom handlers
@@ -164,6 +223,9 @@ sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
+sb.add_request_handler(StartGameIntentHandler())
+sb.add_request_handler(QueryIntentHandler())
+sb.add_request_handler(AnswerIntentHandler())
 sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
 sb.add_exception_handler(CatchAllExceptionHandler())
