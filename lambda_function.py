@@ -19,10 +19,16 @@ logger.setLevel(logging.INFO)
 
 
 import time
-import cards
+from cards import *
+
 isGameInProgress = False
-startTime = 0 
+
+# these time variables will be used to compute the game clock
+startTime = 0
 curTime = 0
+
+# gameSession will be an object of the CardGame class
+gameSession = 0
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -121,8 +127,9 @@ class StartGameIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         speak_output = "Okay. I've put 60 seconds on the clock. Let's begin!"
-        startTime = time.time()
         isGameInProgress = True
+        gameSession = CardGame()
+        startTime = time.time()
 
         return (
             handler_input.response_builder
@@ -139,6 +146,10 @@ class QueryIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+        
+        # need to translate this js into python:
+        # const item = getItem(handlerInput.requestEnvelope.request.intent.slots);
+
         speak_output = "The answer is..."
 
         return (
