@@ -147,10 +147,9 @@ class QueryIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         
-        # need to translate this js into python:
-        # const item = getItem(handlerInput.requestEnvelope.request.intent.slots);
+        item = handler_input.request_envelope.request.intent.slots['Position'].value
 
-        speak_output = "The answer is..."
+        speak_output = "The answer is... " + item
 
         return (
             handler_input.response_builder
