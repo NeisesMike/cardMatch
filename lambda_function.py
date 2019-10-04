@@ -139,24 +139,39 @@ class StartGameIntentHandler(AbstractRequestHandler):
         )
 
 # Handle a Question the Human Asks
-class QueryCharacterIntentHandler(AbstractRequestHandler):
+class QueryIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("QueryCharacterIntent")(handler_input)
+        return ask_utils.is_intent_name("QueryIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "" 
         try:
             position = handler_input.request_envelope.request.intent.slots['Position'].value
             symbol = gameSession.query( position )
-            speak_output = "It is " + str(symbol.character)
         except:
             try:
                 symbol = gameSession.lastSymbol
-                speak_output = "It is " + str(symbol.character)
             except:
-                speak_output = "I'm not sure which one you mean!"
+                symbol = False
+                
+        if( symbol ):
+            data = handler_input.request_envelope.request.intent.slots['Data'].value
+            if( str(data) == "None" ):
+                speak_output = "It's " + str(symbol.character)
+            else:
+                speak_output = "It's "
+                if( data == "color" ):
+                    speak_output += str(symbol.color)
+                elif( data == "rotation" ):
+                    speak_output += str(symbol.rotation)
+                elif( data == "character" ):
+                    speak_output += str(symbol.character)
+                else:
+                    speak_output = "I got confused sorry. What? " + str(data)
+        else:
+            speak_output = "I don't know which symbol you mean!"
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
@@ -164,40 +179,6 @@ class QueryCharacterIntentHandler(AbstractRequestHandler):
                 .response
         )
 
-class QueryColorIntentHandler(AbstractRequestHandler):
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("QueryColorIntent")(handler_input)
-
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        position = handler_input.request_envelope.request.intent.slots['Position'].value
-        symbol = gameSession.query( position )
-        speak_output = "The answer is... " + str(symbol.color)
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
-
-class QueryRotationIntentHandler(AbstractRequestHandler):
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("QueryRotationIntent")(handler_input)
-
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        position = handler_input.request_envelope.request.intent.slots['Position'].value
-        symbol = gameSession.query( position )
-        speak_output = "The answer is... " + str(symbol.rotation)
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
-    
 # Handle an Answer the Human Gives
 class AnswerIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
@@ -274,9 +255,7 @@ sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
 sb.add_request_handler(StartGameIntentHandler())
-sb.add_request_handler(QueryCharacterIntentHandler())
-sb.add_request_handler(QueryColorIntentHandler())
-sb.add_request_handler(QueryRotationIntentHandler())
+sb.add_request_handler(QueryIntentHandler())
 sb.add_request_handler(AnswerIntentHandler())
 sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
