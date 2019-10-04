@@ -78,42 +78,50 @@
                     "values": [
                         {
                             "name": {
-                                "value": "middle right"
+                                "value": "center left",
+                                "synonyms": [
+                                    "middle left"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "middle left"
+                                "value": "center right",
+                                "synonyms": [
+                                    "middle right"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "center left"
+                                "value": "bottom right",
+                                "synonyms": [
+                                    "lower right"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "center right"
+                                "value": "bottom left",
+                                "synonyms": [
+                                    "lower left"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "bottom right"
+                                "value": "top right",
+                                "synonyms": [
+                                    "upper right"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "bottom left"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "top right"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "top left"
+                                "value": "top left",
+                                "synonyms": [
+                                    "upper left"
+                                ]
                             }
                         }
                     ]
