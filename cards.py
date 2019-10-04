@@ -126,14 +126,15 @@ pc12 = PlayingCard(
         Symbol( 'B', "green", "cw"),
         Symbol( '3', "green", "ccw")
     )
-    
+
 cardSet = { pc1, pc2, pc3, pc4, pc5, pc6, pc7, pc8, pc9, pc10, pc11, pc12 }
 
 class CardGame:
     def __init__( self ):
         self.card = random.choice( tuple(cardSet) )
     def query( self, position ):
-        return( self.card.symbols[position] )
+        self.lastSymbol = self.card.symbols[position]
+        return( self.lastSymbol )
     def refresh( self ):
         self.card = random.choice( tuple(cardSet) )
 
