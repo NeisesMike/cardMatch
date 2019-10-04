@@ -21,12 +21,6 @@ logger.setLevel(logging.INFO)
 import time
 from cards import *
 
-isGameInProgress = False
-
-# these time variables will be used to compute the game clock
-startTime = 0
-curTime = 0
-
 # gameSession will be an object of the CardGame class
 gameSession = CardGame()
 
@@ -108,9 +102,7 @@ class StartGameIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         speak_output = "Okay. I've put 60 seconds on the clock. Let's begin!"
-        isGameInProgress = True
-        gameSession.refresh()
-        startTime = time.time()
+        gameSession.start()
 
         return (
             handler_input.response_builder
@@ -126,7 +118,21 @@ class QueryIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("QueryIntent")(handler_input)
 
     def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
+        if( not gameSession.isInProgress ):
+            return (
+                handler_input.response_builder
+                    .speak("We aren't playing right now!")
+                    .ask("add a reprompt if you want to keep the session open for the user to respond")
+                    .response
+            )
+        if( time.time() - gameSession.startTime > 60 ):
+            gameSession.end()
+            return (
+                handler_input.response_builder
+                    .speak("I'm sorry. The game is over!")
+                    .ask("add a reprompt if you want to keep the session open for the user to respond")
+                    .response
+            )
         try:
             position = handler_input.request_envelope.request.intent.slots['Position'].value
             symbol = gameSession.query( position )
@@ -167,7 +173,16 @@ class AnswerIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("AnswerIntent")(handler_input)
 
     def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
+        if( not gameSession.isInProgress ):
+            return (
+                handler_input.response_builder
+                    .speak("We aren't playing right now!")
+                    .ask("add a reprompt if you want to keep the session open for the user to respond")
+                    .response
+            )
+        if( time.time() - gameSession.startTime > 60 ):
+            gameSession.end()
+            
         isAnswerValid = False
         speak_output = "Your answer is " + str(isAnswerValid)
 
