@@ -189,10 +189,12 @@ class AnswerIntentHandler(AbstractRequestHandler):
             gameSession.end()
             speak_output = "You just used your last guess, and "
             
-        isAnswerValid = False
-        speak_output += "your answer is " + str(isAnswerValid)
-        speak_output += ". "
+        isAnswerValid = ( int(handler_input.request_envelope.request.intent.slots['Number'].value) == gameSession.card.id )
+        speak_output += "That's " + ("right! " if isAnswerValid else "not right! ")
 
+        if( isAnswerValid ):
+            speak_output += "We win! "
+            gameSession.end()
         if( not gameSession.isInProgress ):
             speak_output += "Just say start the game if you'd like to try again."
 
