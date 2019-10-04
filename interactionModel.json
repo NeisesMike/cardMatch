@@ -21,10 +21,14 @@
                 },
                 {
                     "name": "StartGameIntent",
-                    "slots": [],
+                    "slots": [
+                        {
+                            "name": "start",
+                            "type": "start"
+                        }
+                    ],
                     "samples": [
-                        "start the game",
-                        "begin the game"
+                        "{start} the game"
                     ]
                 },
                 {
@@ -40,6 +44,12 @@
                         }
                     ],
                     "samples": [
+                        "what is the {Data}",
+                        "what was the {Data}",
+                        "what was its {Data}",
+                        "what's its {Data}",
+                        "what was that",
+                        "what was it",
                         "what {Data} is the {Position} symbol",
                         "what was the {Data} of that symbol",
                         "what is the {Data} of the {Position} symbol",
@@ -131,6 +141,31 @@
                         {
                             "name": {
                                 "value": "color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "start",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "let's play"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "commence"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "begin"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "start"
                             }
                         }
                     ]
