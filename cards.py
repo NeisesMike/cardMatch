@@ -140,6 +140,7 @@ class CardGame:
         self.card = random.choice( tuple(cardSet) )
         self.isInProgress = True
         self.startTime = time.time()
+        self.guesses = 0
     def end( self ):
         self.isInProgress = False
 
