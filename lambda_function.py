@@ -180,11 +180,21 @@ class AnswerIntentHandler(AbstractRequestHandler):
                     .ask("add a reprompt if you want to keep the session open for the user to respond")
                     .response
             )
+        speak_output = ""
+        gameSession.guesses += 1
         if( time.time() - gameSession.startTime > 60 ):
             gameSession.end()
+            speak_output = "We just ran out of time, but "
+        elif( gameSession.guesses >= 3 ):
+            gameSession.end()
+            speak_output = "You just used your last guess, and "
             
         isAnswerValid = False
-        speak_output = "Your answer is " + str(isAnswerValid)
+        speak_output += "your answer is " + str(isAnswerValid)
+        speak_output += ". "
+
+        if( not gameSession.isInProgress ):
+            speak_output += "Just say start the game if you'd like to try again."
 
         return (
             handler_input.response_builder
