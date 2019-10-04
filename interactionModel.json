@@ -41,7 +41,7 @@
                     ]
                 },
                 {
-                    "name": "QueryIntent",
+                    "name": "QueryCharacterIntent",
                     "slots": [
                         {
                             "name": "Position",
@@ -49,11 +49,37 @@
                         }
                     ],
                     "samples": [
-                        "what symbol is in the {Position}",
-                        "what is the color of the symbol in the {Position}",
+                        "what is the {Position} symbol",
+                        "what was that symbol",
+                        "what symbol is in the {Position}"
+                    ]
+                },
+                {
+                    "name": "QueryColorIntent",
+                    "slots": [
+                        {
+                            "name": "Position",
+                            "type": "Position"
+                        }
+                    ],
+                    "samples": [
                         "what is the color of the {Position} symbol",
-                        "what's the rotation of that symbol",
-                        "what color is that symbol"
+                        "what is the color of that symbol",
+                        "what is the color of the symbol in the {Position}"
+                    ]
+                },
+                {
+                    "name": "QueryRotationIntent",
+                    "slots": [
+                        {
+                            "name": "Position",
+                            "type": "Position"
+                        }
+                    ],
+                    "samples": [
+                        "what is the rotation of the symbol in the {Position}",
+                        "what is the rotation of the {Position} symbol",
+                        "what's the rotation of that symbol"
                     ]
                 },
                 {
