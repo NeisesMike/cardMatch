@@ -41,45 +41,24 @@
                     ]
                 },
                 {
-                    "name": "QueryCharacterIntent",
+                    "name": "QueryIntent",
                     "slots": [
                         {
                             "name": "Position",
                             "type": "Position"
+                        },
+                        {
+                            "name": "Data",
+                            "type": "Data"
                         }
                     ],
                     "samples": [
+                        "what {Data} is the {Position} symbol",
+                        "what was the {Data} of that symbol",
+                        "what is the {Data} of the {Position} symbol",
                         "what is the {Position} symbol",
                         "what was that symbol",
                         "what symbol is in the {Position}"
-                    ]
-                },
-                {
-                    "name": "QueryColorIntent",
-                    "slots": [
-                        {
-                            "name": "Position",
-                            "type": "Position"
-                        }
-                    ],
-                    "samples": [
-                        "what is the color of the {Position} symbol",
-                        "what is the color of that symbol",
-                        "what is the color of the symbol in the {Position}"
-                    ]
-                },
-                {
-                    "name": "QueryRotationIntent",
-                    "slots": [
-                        {
-                            "name": "Position",
-                            "type": "Position"
-                        }
-                    ],
-                    "samples": [
-                        "what is the rotation of the symbol in the {Position}",
-                        "what is the rotation of the {Position} symbol",
-                        "what's the rotation of that symbol"
                     ]
                 },
                 {
@@ -138,6 +117,33 @@
                         {
                             "name": {
                                 "value": "top left"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Data",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "character",
+                                "synonyms": [
+                                    "number",
+                                    "letter"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "rotation",
+                                "synonyms": [
+                                    "spin"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "color"
                             }
                         }
                     ]
