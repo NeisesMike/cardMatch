@@ -190,6 +190,14 @@ class AnswerIntentHandler(AbstractRequestHandler):
             speak_output = "You just used your last guess, and "
             
         isAnswerValid = ( int(handler_input.request_envelope.request.intent.slots['Number'].value) == gameSession.card.id )
+        # add emotion words(begin)
+        speechConsCorrect = ('Booya', 'All righty', 'Bam', 'Bazinga', 'Bingo', 'Boom', 'Bravo', 'Cha Ching', 'Cheers', 'Dynomite', 'Hip hip hooray', 'Hurrah', 'Hurray', 'Huzzah', 'Oh dear.  Just kidding.  Hurray', 'Kaboom', 'Kaching', 'Oh snap', 'Phew','Righto', 'Way to go', 'Well done', 'Whee', 'Woo hoo', 'Yay', 'Wowza', 'Yowsa')
+        speechConsWrong = ('Argh', 'Aw man', 'Blarg', 'Blast', 'Boo', 'Bummer', 'Darn', "D'oh", 'Dun dun dun', 'Eek', 'Honk', 'Le sigh', 'Mamma mia', 'Oh boy', 'Oh dear', 'Oof', 'Ouch', 'Ruh roh', 'Shucks', 'Uh oh', 'Wah wah', 'Whoops a daisy', 'Yikes')
+        if( isAnswerValid ):
+            speak_output += random.choice( tuple(speechConsCorrect) )
+        else:
+            speak_output +=  random.choice( tuple(speechConsWrong) ) 
+        ##### (end) 
         speak_output += "That's " + ("right! " if isAnswerValid else "not right! ")
 
         if( isAnswerValid ):
@@ -200,7 +208,7 @@ class AnswerIntentHandler(AbstractRequestHandler):
 
         return (
             handler_input.response_builder
-                .speak(speak_output)
+                .speak("<say-as interpret-as='interjection'>"+speak_output+"</say-as><break strength='strong'/>")
                 .ask("add a reprompt if you want to keep the session open for the user to respond")
                 .response
         )
