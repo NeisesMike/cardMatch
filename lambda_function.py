@@ -14,6 +14,9 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
+from ask_sdk_model.interfaces.videoapp import (LaunchDirective,VideoItem,Metadata)
+from ask_sdk_model import ui
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -206,6 +209,25 @@ class AnswerIntentHandler(AbstractRequestHandler):
         if( not gameSession.isInProgress ):
             speak_output += "Just say start the game if you'd like to try again."
 
+        handler_input.response_builder.set_card(
+            ui.StandardCard(
+                title="Card Match Game",
+                text="Welcome to Card Match Game!",
+                image=ui.Image(
+                    small_image_url="https://d2o906d8ln7ui1.cloudfront.net/images/BT7_Background.png",
+                    large_image_url= "https://d2o906d8ln7ui1.cloudfront.net/images/BT2_Background.png"
+                )
+            )
+        ) 
+        ##### comment codes below for online simulation
+        handler_input.response_builder.add_directive(
+            LaunchDirective(
+                VideoItem(
+                    source = "https://cardmatchgamevideo.s3.amazonaws.com/clock1.mp4", 
+                    metadata = Metadata(title = "Card Match Game", subtitle = "Clock")
+                )
+            )
+        )
         return (
             handler_input.response_builder
                 .speak("<say-as interpret-as='interjection'>"+speak_output+"</say-as><break strength='strong'/>")
