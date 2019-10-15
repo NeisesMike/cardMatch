@@ -17,6 +17,8 @@ from ask_sdk_model import Response
 from ask_sdk_model.interfaces.videoapp import (LaunchDirective,VideoItem,Metadata)
 from ask_sdk_model import ui
 
+from ask_sdk_model.ui import SimpleCard
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -37,12 +39,16 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Okay! I'm ready to play when you are!"
+   #     speak_output = "Okay! I'm ready to play when you are!"
 
+        welcome_info = "Welcome to Card Find Game! The system will select a random card among the 12 candidate cards. Your task is to find out the number of this secret card in 60 seconds. To narrow down your choices, you could ask Alexa about the rotation, symbol and color of the symbol in different positions, like center left. You have only 3 chances to guess. Now, when you get ready, say start to begin this game."
+        show_info = "Task: find out the number of this secret card among 12 candidates in 60 seconds (3 chances in total). To narrow down your choices, you could ask Alexa about the rotation, symbol and color of the symbol in different positions, like row 1 column 1. When you get ready, say start to begin this game."
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
                 .ask(speak_output)
+                .set_card(SimpleCard("Card Match Game", show_info))
                 .response
         )
 
@@ -54,12 +60,13 @@ class HelpIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "You can say hello to me! How can I help?"
+        speak_output = "You can ask, 'the color of center left symbol'"
 
         return (
             handler_input.response_builder
                 .speak(speak_output)
                 .ask(speak_output)
+                .set_card(SimpleCard("Card Match Game", speak_output))
                 .response
         )
 
@@ -110,7 +117,8 @@ class StartGameIntentHandler(AbstractRequestHandler):
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .ask("You can ask the color of center left symbol")
+                .set_card(SimpleCard("Card Match Game", "You can ask, 'the color of center left symbol'"))
                 .response
         )
 
@@ -165,7 +173,7 @@ class QueryIntentHandler(AbstractRequestHandler):
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .ask("You can ask the color of center left symbol")
                 .response
         )
 
@@ -197,14 +205,16 @@ class AnswerIntentHandler(AbstractRequestHandler):
         speechConsCorrect = ('Booya', 'All righty', 'Bam', 'Bazinga', 'Bingo', 'Boom', 'Bravo', 'Cha Ching', 'Cheers', 'Dynomite', 'Hip hip hooray', 'Hurrah', 'Hurray', 'Huzzah', 'Oh dear.  Just kidding.  Hurray', 'Kaboom', 'Kaching', 'Oh snap', 'Phew','Righto', 'Way to go', 'Well done', 'Whee', 'Woo hoo', 'Yay', 'Wowza', 'Yowsa')
         speechConsWrong = ('Argh', 'Aw man', 'Blarg', 'Blast', 'Boo', 'Bummer', 'Darn', "D'oh", 'Dun dun dun', 'Eek', 'Honk', 'Le sigh', 'Mamma mia', 'Oh boy', 'Oh dear', 'Oof', 'Ouch', 'Ruh roh', 'Shucks', 'Uh oh', 'Wah wah', 'Whoops a daisy', 'Yikes')
         if( isAnswerValid ):
-            speak_output += random.choice( tuple(speechConsCorrect) )
+            speak_output += "<say-as interpret-as='interjection'>"+ random.choice( tuple(speechConsCorrect) )+"</say-as><break strength='strong'/>"
+            speak_output += " That's "+"<emphasis level='strong'>"+"correct"+ "</emphasis><break strength='strong'/>"
         else:
-            speak_output +=  random.choice( tuple(speechConsWrong) ) 
+            speak_output += "<say-as interpret-as='interjection'>"+ random.choice( tuple(speechConsWrong) ) +"</say-as><break strength='strong'/>"
+            speak_output +=  "<say-as interpret-as='interjection'>"+" not right!"+"</say-as><break strength='strong'/>"
         ##### (end) 
-        speak_output += "That's " + ("right! " if isAnswerValid else "not right! ")
+        # speak_output += "That's " + ("right! " if isAnswerValid else "not right! ")
 
         if( isAnswerValid ):
-            speak_output += "We win! "
+            speak_output += "<say-as interpret-as='interjection'>"+"We win! "+"</say-as><break strength='strong'/>"
             gameSession.end()
         if( not gameSession.isInProgress ):
             speak_output += "Just say start the game if you'd like to try again."
@@ -230,8 +240,8 @@ class AnswerIntentHandler(AbstractRequestHandler):
         )
         return (
             handler_input.response_builder
-                .speak("<say-as interpret-as='interjection'>"+speak_output+"</say-as><break strength='strong'/>")
-                .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .speak("<voice name='Matthew'>"+speak_output+"</voice>" if isAnswerValid else speak_output)
+                .ask("You can ask the color of center left symbol")
                 .response
         )
 
