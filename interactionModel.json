@@ -68,7 +68,10 @@
                     ],
                     "samples": [
                         "The card is number {Number}",
-                        "Is the card number {Number}"
+                        "Is the card number {Number}",
+                        "{Number}",
+                        "Is it {Number}",
+                        "It's {Number}"
                     ]
                 }
             ],
@@ -80,7 +83,8 @@
                             "name": {
                                 "value": "center left",
                                 "synonyms": [
-                                    "middle left"
+                                    "middle left",
+                                    "row 2 column 1"
                                 ]
                             }
                         },
@@ -88,7 +92,8 @@
                             "name": {
                                 "value": "center right",
                                 "synonyms": [
-                                    "middle right"
+                                    "middle right",
+                                    "row 2 column 2"
                                 ]
                             }
                         },
@@ -96,7 +101,8 @@
                             "name": {
                                 "value": "bottom right",
                                 "synonyms": [
-                                    "lower right"
+                                    "lower right",
+                                    "row 3 column 2"
                                 ]
                             }
                         },
@@ -104,7 +110,8 @@
                             "name": {
                                 "value": "bottom left",
                                 "synonyms": [
-                                    "lower left"
+                                    "lower left",
+                                    "row 3 column 1"
                                 ]
                             }
                         },
@@ -112,7 +119,8 @@
                             "name": {
                                 "value": "top right",
                                 "synonyms": [
-                                    "upper right"
+                                    "upper right",
+                                    "row 1 column 2"
                                 ]
                             }
                         },
@@ -120,7 +128,8 @@
                             "name": {
                                 "value": "top left",
                                 "synonyms": [
-                                    "upper left"
+                                    "upper left",
+                                    "row 1 column 1"
                                 ]
                             }
                         }
