@@ -114,6 +114,26 @@ class StartGameIntentHandler(AbstractRequestHandler):
         speak_output = "Okay. I've put 60 seconds on the clock. Let's begin!"
         gameSession.start()
 
+        handler_input.response_builder.set_card(
+            ui.StandardCard(
+                title="Card Match Game",
+                text="Welcome to Card Match Game!",
+                image=ui.Image(
+                    small_image_url="https://d2o906d8ln7ui1.cloudfront.net/images/BT7_Background.png",
+                    large_image_url= "https://d2o906d8ln7ui1.cloudfront.net/images/BT2_Background.png"
+                )
+            )
+        ) 
+        ##### comment codes below for online simulation
+        handler_input.response_builder.add_directive(
+            LaunchDirective(
+                VideoItem(
+                    source = "https://cardmatchgamevideo.s3.amazonaws.com/clock1.mp4", 
+                    metadata = Metadata(title = "Card Match Game", subtitle = "Clock")
+                )
+            )
+        )
+        ### end of your comment
         return (
             handler_input.response_builder
                 .speak(speak_output)
@@ -219,25 +239,6 @@ class AnswerIntentHandler(AbstractRequestHandler):
         if( not gameSession.isInProgress ):
             speak_output += "Just say start the game if you'd like to try again."
 
-        handler_input.response_builder.set_card(
-            ui.StandardCard(
-                title="Card Match Game",
-                text="Welcome to Card Match Game!",
-                image=ui.Image(
-                    small_image_url="https://d2o906d8ln7ui1.cloudfront.net/images/BT7_Background.png",
-                    large_image_url= "https://d2o906d8ln7ui1.cloudfront.net/images/BT2_Background.png"
-                )
-            )
-        ) 
-        ##### comment codes below for online simulation
-        handler_input.response_builder.add_directive(
-            LaunchDirective(
-                VideoItem(
-                    source = "https://cardmatchgamevideo.s3.amazonaws.com/clock1.mp4", 
-                    metadata = Metadata(title = "Card Match Game", subtitle = "Clock")
-                )
-            )
-        )
         return (
             handler_input.response_builder
                 .speak("<voice name='Matthew'>"+speak_output+"</voice>" if isAnswerValid else speak_output)
